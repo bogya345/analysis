@@ -4,13 +4,15 @@ import random
 
 
 def getData_numpy(path):
-    data = np.genfromtxt(fname=path, delimiter=',', skip_header=1)
+    data = np.genfromtxt(fname=path, delimiter=',', skip_header=1, usecols=np.arange(0,3))
     # data = data[data[:,0].argsort()]
     return data
 
 
-def getPreparedData_numpy(path, theta=-1, thetaSize=2, randTheta=False):
+def getPreparedData_numpy(path, theta=-1, thetaSize=-1, randTheta=False):
     data = getData_numpy(path)
+    if thetaSize == -1:
+        thetaSize = len(data[0])
     if randTheta:
         theta = np.array(random.random() for i in range(0, thetaSize))
     else:
@@ -25,6 +27,13 @@ def getColumns(data):
         result.append(np.array([data[:, i]]).transpose())
         continue
     return result
+
+
+def unitFeatures(*args):
+    x = np.array(np.array(args[0]))
+    for i in range(1, len(args)):
+        x = np.insert(x, [i], args[i], axis=1)
+    return x
 
 
 def getAsFeatures(df):
