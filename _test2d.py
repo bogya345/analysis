@@ -10,12 +10,13 @@ def h(x, theta):
     print(x[:,1])
     result = (theta[0] * 1 + theta[1] * x[:,1])
     # result = np.ones(shape=(len(x),))
-    result = np.array([random.random()*10 for i in range(0, len(x))])
+    #result = np.array([random.random()*10 for i in range(0, len(x))])
     result = np.array(result).reshape(len(result), 1)
     return result
 
 if __name__ == '__main__':
-    [x1, x2, y], theta = dal.getPreparedData_numpy('./storage/simpleTest-2d.csv')
+    #[x1, x2, y], theta = dal.getPreparedData_numpy('./storage/simpleTest-2d.csv')
+    [x1, x2, y], theta = dal.getPreparedData_numpy('./storage/test.csv')
     x = dal.unitFeatures(x1, x2)
 
     # x = funcs.normalize(x)

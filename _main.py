@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 import common_dal as dal
 import common_funcs as funcs
 
+def h(x, theta):
+    # x, theta = common.transformToNpArrays(x, theta)
+    # result = (x[:,0] * theta[0] + x[:,1] * theta[1])
+    print(x[:,1])
+    result = (theta[0] * 1 + theta[1] * x[:,1])
+    result = np.array(result).reshape(len(result), 1)
+    return result
 
 
 tmp = dal.getDataFrame('./storage/test.csv')
@@ -20,10 +27,10 @@ x = np.insert(x, [0], np.ones(shape=(len(x1),1)), axis=1)
 
 figure, axes = plt.subplots(nrows=2, ncols=2)
 
-theta, Jhist = funcs.gradDesc(x, y, theta, alpha=0.005)
+theta, Jhist = funcs.gradDesc(x, y, theta, h, alpha=0.005)
 
 axes[0, 0].plot(x[:,1], y, 'gp')
-axes[0, 0].plot(x[:,1], funcs.h(x, theta), 'bp')
+axes[0, 0].plot(x[:,1], h(x, theta), 'b-')
 axes[1, 1].plot(range(0, len(Jhist)), Jhist)
 
 plt.show()

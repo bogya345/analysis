@@ -3,22 +3,23 @@ import numpy as np
 import random
 
 
-def getData_numpy(path):
-    data = np.genfromtxt(fname=path, delimiter=',', skip_header=1, usecols=np.arange(0,3))
+def getData_numpy(path, usecols=np.arange(0,2)):
+    data = np.genfromtxt(fname=path, delimiter=',', skip_header=1, usecols=usecols)
     # data = data[data[:,0].argsort()]
     return data
 
 
-def getPreparedData_numpy(path, theta=-1, thetaSize=-1, randTheta=False):
+def getPreparedData_numpy(path, theta=np.array([]), thetaSize=-1, randTheta=False):
     data = getData_numpy(path)
     if thetaSize == -1:
         thetaSize = len(data[0])
     if randTheta:
-        theta = np.array(random.random() for i in range(0, thetaSize))
+        theta = np.array([[random.random() for i in range(0, thetaSize)]]).transpose()
     else:
-        if theta == -1:
+        if not theta.any():
             theta = np.zeros(shape=(thetaSize, 1))
-    return getColumns(data), theta
+    sortedData = data[data[:, 0].argsort()]
+    return getColumns(sortedData), theta
 
 
 def getColumns(data):
