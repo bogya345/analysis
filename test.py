@@ -17,8 +17,8 @@ def main():
     
     plt.plot(x, y, c='g')
 
-    plt.savefig('./figures/foo.png')
-    plt.savefig('./figures/foo.pdf')
+    plt.savefig('./foo.png')
+    plt.savefig('./foo.pdf')
 
     plt.show()
     pass
